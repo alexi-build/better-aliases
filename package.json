@@ -22,7 +22,7 @@
 		},
 		{
 			"name": "expand-alias",
-			"title": "Expand Alias",
+			"title": "Expand Alias or Insert Snippet",
 			"description": "Better Aliases",
 			"mode": "view",
 			"preferences": [
