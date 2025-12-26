@@ -1,68 +1,71 @@
-import { Action, ActionPanel, Form, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, Form, popToRoot, showToast, Toast } from "@raycast/api";
+import { useForm, showFailureToast } from "@raycast/utils";
 import { addBetterAlias } from "./lib/betterAliases";
-import type { CreateBetterAliasFormData } from "./types/form";
+
+interface CreateAliasFormValues {
+  alias: string;
+  value: string;
+  label?: string;
+  snippetOnlyMode: boolean;
+}
 
 export default function Command() {
-  function handleSubmit(values: CreateBetterAliasFormData) {
-    try {
-      addBetterAlias(values.alias, {
-        value: values.value,
-        label: values.label || values.alias,
-      });
-
-      showToast({
-        style: Toast.Style.Success,
-        title: "Better Alias Created",
-        message: `Alias "${values.alias}" saved successfully`,
-      });
-    } catch (error) {
-      showToast({
-        style: Toast.Style.Failure,
-        title: "Failed to Create Better Alias",
-        message: String(error),
-      });
-    }
-  }
+  const { handleSubmit, itemProps } = useForm<CreateAliasFormValues>({
+    onSubmit: async (values) => {
+      try {
+        addBetterAlias(values.alias, {
+          value: values.value,
+          label: values.label || values.alias,
+        });
+        await showToast(Toast.Style.Success, "Alias created", values.alias);
+        popToRoot();
+      } catch (error) {
+        await showFailureToast(error, { title: "Failed to create alias" });
+      }
+    },
+    validation: {
+      alias: (value) => {
+        if (!value?.trim()) return "Alias is required";
+        if (!/^[a-z0-9-_.]+$/i.test(value)) return "Only letters, numbers, dashes, underscores, and dots allowed";
+      },
+      value: (value) => {
+        if (!value?.trim()) return "Value is required";
+      },
+    },
+  });
 
   return (
     <Form
       actions={
         <ActionPanel>
-          <Action.SubmitForm onSubmit={handleSubmit} />
+          <Action.SubmitForm title="Create Alias" onSubmit={handleSubmit} />
         </ActionPanel>
       }
     >
       <Form.Description text="Create a new Better Alias for a quicklink or snippet." />
       <Form.TextField
-        id="name"
-        title="Alias Name"
+        title="Alias"
         placeholder="Enter alias name (e.g., 'gh')"
-        info="The key you'll type to trigger this alias"
+        info="The shorthand you'll type to trigger this alias"
+        {...itemProps.alias}
       />
       <Form.TextArea
-        id="body"
-        title="Alias Body"
+        title="Value"
         placeholder="Enter URL, file path, or text content"
         info="What should happen when this alias is triggered"
+        {...itemProps.value}
       />
       <Form.TextField
-        id="label"
-        title="Display Label (optional)"
+        title="Label (optional)"
         placeholder="Enter display name"
         info="Optional friendly name shown in search results"
+        {...itemProps.label}
       />
       <Form.Checkbox
-        id="snippetOnlyMode"
-        title="Snippet Only Mode"
         label="Text insertion only (disables opening URLs/files)"
-        storeValue
+        title="Snippet Only Mode"
+        {...itemProps.snippetOnlyMode}
       />
-      {/* <Form.Dropdown id="dropdown" title="Dropdown">
-        <Form.Dropdown.Item value="dropdown-item" title="Dropdown Item" />
-      </Form.Dropdown> */}
-      {/* <Form.TagPicker id="tokeneditor" title="Tag picker">
-        <Form.TagPicker.Item value="tagpicker-item" title="Tag Picker Item" />
-      </Form.TagPicker> */}
     </Form>
   );
 }

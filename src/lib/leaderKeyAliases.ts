@@ -46,7 +46,7 @@ function traverseActions(actions: LeaderKeyAction[], currentPath: string = ""): 
 }
 
 export function convertLeaderKeyConfigToAliases(leaderKeyConfig: LeaderKeyConfig): BetterAliasesConfig {
-  return traverseActions(leaderKeyConfig.actions);
+  return traverseActions(leaderKeyConfig.actions || []);
 }
 
 export function getLeaderKeyAliases(): BetterAliasesConfig {
