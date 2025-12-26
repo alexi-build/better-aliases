@@ -1,1 +1,28 @@
 # Better Aliases
+
+Create and manage better aliases and snippets directly in Raycast.
+
+## Features
+
+- **Manage Aliases**: Create, search, and expand aliases efficiently.
+- **Snippets**: Create text snippets with support for randomized variations.
+- **Leader Key**: Visualize your leader key configuration as a keyboard layout.
+- **Custom Configuration**: Support for custom configuration file paths.
+
+## Commands
+
+- **Create Alias**: Add a new alias to your collection.
+- **Create Snippet**: Add a new text snippet.
+- **Expand Alias or Insert Snippet**: Quickly find and use your aliases or snippets.
+- **Search Aliases**: Browse and manage your existing aliases.
+- **View Leader Key**: Visual representation of your leader key bindings.
+
+## Configuration
+
+This extension allows for deep customization via Extension Preferences:
+
+- **Snippet Prefix**: Character to trigger snippet mode (Default: `,`).
+- **Randomized Separator**: Separator used for randomized snippet values (Default: `;;`).
+- **Config Paths**:
+  - **Better Aliases Config**: Path to your main JSON config (Defaults to `~/.config/better-aliases/better-aliases.json`).
+  - **Leader Key Config**: Path to your leader key configuration file.
