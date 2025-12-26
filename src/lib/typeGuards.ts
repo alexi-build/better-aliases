@@ -1,4 +1,4 @@
-import type { BetterAliasItem, BetterAliasesConfig } from "../types";
+import type { BetterAliasesConfig, BetterAliasItem } from "../types";
 import type { LeaderKeyAction, LeaderKeyConfig } from "../types/leader-key";
 
 export function isBetterAliasItem(value: unknown): value is BetterAliasItem {

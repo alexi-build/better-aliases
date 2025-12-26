@@ -26,7 +26,11 @@ export function validateSnippet(body: string, separator: string): SnippetValidat
 
   if (!usesSeparator) {
     if (!body.trim()) {
-      return { isValid: false, error: "Please provide snippet content", options: [] };
+      return {
+        isValid: false,
+        error: "Please provide snippet content",
+        options: [],
+      };
     }
     return { isValid: true, options: [body.trim()] };
   }

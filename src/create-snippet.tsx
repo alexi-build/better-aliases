@@ -1,5 +1,5 @@
-import { Action, ActionPanel, Form, popToRoot, showToast, Toast, getPreferenceValues } from "@raycast/api";
-import { useForm, showFailureToast } from "@raycast/utils";
+import { Action, ActionPanel, Form, getPreferenceValues, popToRoot, showToast, Toast } from "@raycast/api";
+import { showFailureToast, useForm } from "@raycast/utils";
 import { addBetterSnippet } from "./lib/betterSnippets";
 import { validateSnippet } from "./lib/snippetUtils";
 import type { Preferences } from "./types";

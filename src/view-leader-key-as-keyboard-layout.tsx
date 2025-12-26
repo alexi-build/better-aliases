@@ -1,7 +1,7 @@
 import { Icon, List } from "@raycast/api";
 import { useMemo, useState } from "react";
 import { useLeaderKeyConfig } from "./hooks";
-import { getCurrentLevelActions, getTakenKeys, generateKeyboardMarkdown } from "./lib/keyboardLayout";
+import { generateKeyboardMarkdown, getCurrentLevelActions, getTakenKeys } from "./lib/keyboardLayout";
 
 export default function Command() {
   const { data: config, isLoading } = useLeaderKeyConfig();

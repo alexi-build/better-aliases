@@ -1,5 +1,5 @@
 import { Action, ActionPanel, Form, popToRoot, showToast, Toast } from "@raycast/api";
-import { useForm, showFailureToast } from "@raycast/utils";
+import { showFailureToast, useForm } from "@raycast/utils";
 import { addBetterAlias } from "./lib/betterAliases";
 
 interface CreateAliasFormValues {

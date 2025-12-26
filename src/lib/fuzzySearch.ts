@@ -18,7 +18,10 @@ const FUSE_OPTIONS: IFuseOptions<SearchableItem> = {
   includeScore: true,
 };
 
-let fuseCache: { aliases: BetterAliasesConfig; fuse: Fuse<SearchableItem> } | null = null;
+let fuseCache: {
+  aliases: BetterAliasesConfig;
+  fuse: Fuse<SearchableItem>;
+} | null = null;
 
 export function fuzzySearchAliases(aliases: BetterAliasesConfig, searchText: string): AliasEntry[] {
   const entries = Object.entries(aliases);
