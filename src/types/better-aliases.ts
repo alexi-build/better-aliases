@@ -1,0 +1,27 @@
+export interface BetterAliasItem {
+  value: string;
+  label?: string;
+}
+
+export interface BetterAliasesConfig {
+  [alias: string]: BetterAliasItem;
+}
+
+// general preferences
+export interface Preferences {
+  leaderKeyConfigPath?: string;
+  betterAliasesConfigPath?: string;
+  betterSnippetsConfigPath?: string;
+  hideAccessories?: boolean;
+  snippetPrefix?: string;
+  randomizedSnippetSeparator?: string;
+}
+
+// expand alias preferences
+export interface ExpandAliasPreferences extends Preferences {
+  showFullAlias: boolean;
+}
+
+// leader key preferences
+
+// search alias preferences
