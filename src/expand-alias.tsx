@@ -1,9 +1,9 @@
-import { Action, ActionPanel, Clipboard, getPreferenceValues, Icon, List, open, showToast, Toast } from "@raycast/api";
-import { useEffect, useMemo, useState } from "react";
-import { useAliases, useAliasesWithFrecency } from "./hooks";
+import { Action, ActionPanel, getPreferenceValues, Icon, List } from "@raycast/api";
+import { useMemo, useState } from "react";
+import { useAliases, useAliasesWithFrecency, useAutoTriggerAlias } from "./hooks";
 import { filterAliases } from "./lib/aliasFiltering";
 import { formatAlias } from "./lib/formatAlias";
-import { createOpenAction, getOpenTarget } from "./lib/openAlias";
+import { createOpenAction } from "./lib/openAlias";
 import { getRandomizedValue } from "./lib/snippetUtils";
 import type { BetterAliasItem, ExpandAliasPreferences } from "./types";
 
@@ -23,46 +23,7 @@ export default function Command() {
 
   const { sortedEntries, visitItem } = useAliasesWithFrecency(filterResult.entries);
 
-  // Auto-trigger when only 1 filtered item is left
-  useEffect(() => {
-    if (sortedEntries.length === 1 && searchText.trim()) {
-      const [, aliasItem] = sortedEntries[0];
-      const snippetPrefix = preferences.snippetPrefix?.trim();
-      const isSnippetMode = snippetPrefix && searchText.startsWith(snippetPrefix);
-
-      if (isSnippetMode) {
-        const valueToInsert = getRandomizedValue(aliasItem.value, preferences.randomizedSnippetSeparator);
-        Clipboard.paste(valueToInsert)
-          .then(() => {
-            setSearchText("");
-            visitItem(sortedEntries[0]);
-          })
-          .catch((error) => {
-            console.error("Error pasting value:", error);
-            showToast({
-              style: Toast.Style.Failure,
-              title: "Error pasting value",
-              message: String(error),
-            });
-          });
-      } else {
-        const targetToOpen = getOpenTarget(aliasItem.value);
-        open(targetToOpen)
-          .then(() => {
-            setSearchText("");
-            visitItem(sortedEntries[0]);
-          })
-          .catch((error) => {
-            console.error("Error opening value:", error);
-            showToast({
-              style: Toast.Style.Failure,
-              title: "Error opening value",
-              message: String(error),
-            });
-          });
-      }
-    }
-  }, [sortedEntries, searchText, preferences.snippetPrefix, visitItem]);
+  useAutoTriggerAlias(sortedEntries, searchText, setSearchText, visitItem, preferences);
 
   if (isLoading) {
     return <List isLoading />;

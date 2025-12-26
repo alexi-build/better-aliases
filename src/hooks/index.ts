@@ -1,3 +1,4 @@
 export * from "./useAliases";
-export * from "./useLeaderKeyConfig";
 export * from "./useAliasesWithFrecency";
+export * from "./useAutoTriggerAlias";
+export * from "./useLeaderKeyConfig";
