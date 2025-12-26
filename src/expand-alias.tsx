@@ -183,10 +183,7 @@ export default function Command() {
                   } else {
                     return (
                       <>
-                        {createOpenAction(aliasItem.value, "Open", {
-                          modifiers: ["cmd"],
-                          key: "o",
-                        } as const)}
+                        {createOpenAction(aliasItem.value, "Open")}
                         <Action.CopyToClipboard
                           title="Copy Alias"
                           content={alias}

@@ -101,11 +101,7 @@ export default function Command() {
             }
             actions={
               <ActionPanel>
-                <Action.CopyToClipboard
-                  title="Copy Alias"
-                  content={alias}
-                  shortcut={{ modifiers: ["cmd"], key: "c" }}
-                />
+                <Action.CopyToClipboard title="Copy Alias" content={alias} />
                 <Action.CopyToClipboard
                   title="Copy Value"
                   content={aliasItem.value}
