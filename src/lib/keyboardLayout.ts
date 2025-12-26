@@ -24,7 +24,9 @@ export function getCurrentLevelActions(actions: LeaderKeyAction[] | undefined, p
 
 export function getTakenKeys(actions: LeaderKeyAction[]): Set<string> {
   const takenKeys = new Set<string>();
-  actions.forEach((action) => takenKeys.add(action.key.toLowerCase()));
+  for (const action of actions) {
+    takenKeys.add(action.key.toLowerCase());
+  }
   return takenKeys;
 }
 
@@ -49,8 +51,8 @@ export function generateKeyboardMarkdown(takenKeys: Set<string>): string {
     markdown += rowStr + "\n";
 
     if (rowIndex === 0) {
-      const separatorRow = "|" + row.map((key) => (key === "Space" ? "⎵" : "----")).join("|") + "|";
-      markdown += separatorRow + "\n";
+      const separatorRow = `|${row.map((key) => (key === "Space" ? "⎵" : "----")).join("|")}|`;
+      markdown += `${separatorRow}\n`;
     }
   });
 
