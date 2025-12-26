@@ -1,5 +1,5 @@
+import { Action, type Keyboard } from "@raycast/api";
 import React from "react";
-import { Action, Keyboard } from "@raycast/api";
 import { expandPath, extractPathFromOpenCommand, isOpenCommand } from "./expandPath";
 
 /**

@@ -1,7 +1,7 @@
 import { getPreferenceValues } from "@raycast/api";
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname } from "path";
-import type { Preferences, BetterAliasesConfig, BetterAliasItem } from "../types";
+import type { BetterAliasesConfig, BetterAliasItem, Preferences } from "../types";
 
 export function getBetterAliasesPath(): string {
   const preferences = getPreferenceValues<Preferences>();

@@ -1,6 +1,6 @@
 import { getPreferenceValues } from "@raycast/api";
-import { readFileSync, existsSync } from "fs";
-import type { Preferences, LeaderKeyConfig, LeaderKeyAction, BetterAliasesConfig } from "../types";
+import { existsSync, readFileSync } from "fs";
+import type { BetterAliasesConfig, LeaderKeyAction, LeaderKeyConfig, Preferences } from "../types";
 
 export function getLeaderKeyConfig(): LeaderKeyConfig | null {
   const preferences = getPreferenceValues<Preferences>();

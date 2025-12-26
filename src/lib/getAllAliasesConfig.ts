@@ -1,7 +1,7 @@
-import { getLeaderKeyAliases } from "./leaderKeyAliases";
+import type { BetterAliasesConfig } from "../types";
 import { loadBetterAliases } from "./betterAliases";
 import { loadBetterSnippets } from "./betterSnippets";
-import type { BetterAliasesConfig } from "../types";
+import { getLeaderKeyAliases } from "./leaderKeyAliases";
 
 export function getAllAliasesConfig(): BetterAliasesConfig {
   const leaderKeyAliases = getLeaderKeyAliases();
