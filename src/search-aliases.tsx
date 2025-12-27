@@ -15,10 +15,6 @@ export default function Command() {
 
   const { sortedEntries, visitItem } = useAliasesWithFrecency(searchResults);
 
-  if (isLoading) {
-    return <List isLoading />;
-  }
-
   const totalAliases = Object.keys(aliases).length;
 
   return (

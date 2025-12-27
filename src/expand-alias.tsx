@@ -25,10 +25,6 @@ export default function Command() {
 
   useAutoTriggerAlias(sortedEntries, searchText, setSearchText, visitItem, preferences);
 
-  if (isLoading) {
-    return <List isLoading />;
-  }
-
   const totalAliases = Object.keys(aliases).length;
 
   return (
