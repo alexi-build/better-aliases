@@ -18,26 +18,21 @@ const FUSE_OPTIONS: IFuseOptions<SearchableItem> = {
   includeScore: true,
 };
 
-let fuseCache: {
-  aliases: BetterAliasesConfig;
-  fuse: Fuse<SearchableItem>;
-} | null = null;
-
+/**
+ * Performs a fuzzy search on aliases using Fuse.js
+ * @param aliases - The map of aliases to search
+ * @param searchText - The text to search for
+ * @returns Sorted list of matching alias entries
+ */
 export function fuzzySearchAliases(aliases: BetterAliasesConfig, searchText: string): AliasEntry[] {
   const entries = Object.entries(aliases);
   if (!searchText.trim()) return entries;
 
-  if (!fuseCache || fuseCache.aliases !== aliases) {
-    const searchableItems: SearchableItem[] = entries.map(([alias, aliasItem]) => ({
-      alias,
-      aliasItem,
-    }));
-    fuseCache = { aliases, fuse: new Fuse(searchableItems, FUSE_OPTIONS) };
-  }
+  const searchableItems: SearchableItem[] = entries.map(([alias, aliasItem]) => ({
+    alias,
+    aliasItem,
+  }));
+  const fuse = new Fuse(searchableItems, FUSE_OPTIONS);
 
-  return fuseCache.fuse.search(searchText).map((r) => [r.item.alias, r.item.aliasItem]);
-}
-
-export function clearFuseCache(): void {
-  fuseCache = null;
+  return fuse.search(searchText).map((r) => [r.item.alias, r.item.aliasItem]);
 }

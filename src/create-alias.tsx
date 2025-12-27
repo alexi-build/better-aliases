@@ -16,6 +16,7 @@ export default function Command() {
         addBetterAlias(values.alias, {
           value: values.value,
           label: values.label || values.alias,
+          snippetOnly: values.snippetOnlyMode,
         });
         await showToast(Toast.Style.Success, "Alias created", values.alias);
         popToRoot();

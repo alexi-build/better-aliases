@@ -13,6 +13,12 @@ export interface FilterResult {
   searchQuery: string;
 }
 
+/**
+ * Filters aliases based on search text and handles snippet prefix mode
+ * @param aliases - The config object containing all aliases
+ * @param options - Filter and search options
+ * @returns Filtered entries and mode status
+ */
 export function filterAliases(aliases: BetterAliasesConfig, options: FilterOptions): FilterResult {
   const { searchText, snippetPrefix } = options;
   const entries = Object.entries(aliases);

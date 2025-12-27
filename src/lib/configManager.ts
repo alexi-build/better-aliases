@@ -21,16 +21,25 @@ export function createConfigManager<T>(options: ConfigManagerOptions<T>): Config
 
     load(): T {
       const configPath = getConfigPath();
-      if (!existsSync(configPath)) return defaultValue;
-
-      const content = readFileSync(configPath, "utf8");
-      const parsed = JSON.parse(content);
-
-      if (validate && !validate(parsed)) {
-        throw new Error(`Invalid config format at ${configPath}`);
+      if (!existsSync(configPath)) {
+        return defaultValue;
       }
 
-      return parsed as T;
+      try {
+        const content = readFileSync(configPath, "utf8");
+        const parsed = JSON.parse(content);
+
+        if (validate && !validate(parsed)) {
+          throw new Error(`Invalid config format at ${configPath}`);
+        }
+
+        return parsed as T;
+      } catch (error) {
+        if (error instanceof SyntaxError) {
+          throw new Error(`Invalid JSON in config file: ${configPath}`);
+        }
+        throw error;
+      }
     },
 
     save(data: T): void {

@@ -1,4 +1,5 @@
-import { Clipboard, open, showToast, Toast } from "@raycast/api";
+import { Clipboard, closeMainWindow, open } from "@raycast/api";
+import { showFailureToast } from "@raycast/utils";
 import { useEffect } from "react";
 import { getOpenTarget } from "../lib/openAlias";
 import { getRandomizedValue } from "../lib/snippetUtils";
@@ -22,31 +23,23 @@ export function useAutoTriggerAlias(
         const valueToInsert = getRandomizedValue(aliasItem.value, preferences.randomizedSnippetSeparator);
         Clipboard.paste(valueToInsert)
           .then(() => {
+            closeMainWindow();
             setSearchText("");
             visitItem(entry);
           })
           .catch((error) => {
-            console.error("Error pasting value:", error);
-            showToast({
-              style: Toast.Style.Failure,
-              title: "Error pasting value",
-              message: String(error),
-            });
+            showFailureToast(error, { title: "Error pasting value" });
           });
       } else {
         const targetToOpen = getOpenTarget(aliasItem.value);
         open(targetToOpen)
           .then(() => {
+            closeMainWindow();
             setSearchText("");
             visitItem(entry);
           })
           .catch((error) => {
-            console.error("Error opening value:", error);
-            showToast({
-              style: Toast.Style.Failure,
-              title: "Error opening value",
-              message: String(error),
-            });
+            showFailureToast(error, { title: "Error opening value" });
           });
       }
     }

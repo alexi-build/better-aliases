@@ -1,10 +1,9 @@
-import { Action, ActionPanel, getPreferenceValues, Icon, List } from "@raycast/api";
+import { getPreferenceValues, Icon, List } from "@raycast/api";
 import { useMemo, useState } from "react";
+import { AliasListItem } from "./components/AliasListItem";
 import { useAliases, useAliasesWithFrecency } from "./hooks";
-import { formatAlias } from "./lib/formatAlias";
 import { fuzzySearchAliases } from "./lib/fuzzySearch";
-import { createOpenAction } from "./lib/openAlias";
-import type { BetterAliasItem, Preferences } from "./types";
+import type { Preferences } from "./types";
 
 export default function Command() {
   const { data: aliases = {}, isLoading } = useAliases();
@@ -40,49 +39,12 @@ export default function Command() {
             key={alias}
             alias={alias}
             item={aliasItem}
-            preferences={preferences}
+            preferences={{ ...preferences, showFullAlias: false }}
             searchText={searchText}
             onSelect={() => visitItem([alias, aliasItem])}
           />
         ))
       )}
     </List>
-  );
-}
-
-function AliasListItem({
-  alias,
-  item,
-  preferences,
-  searchText,
-  onSelect,
-}: {
-  alias: string;
-  item: BetterAliasItem;
-  preferences: Preferences;
-  searchText: string;
-  onSelect: () => void;
-}) {
-  return (
-    <List.Item
-      title={formatAlias(alias, false, searchText)}
-      subtitle={item.label || item.value}
-      accessories={preferences.hideAccessories ? undefined : [{ text: item.value }]}
-      actions={
-        <ActionPanel>
-          <Action.CopyToClipboard title="Copy Alias" content={alias} onCopy={onSelect} />
-          <Action.CopyToClipboard
-            title="Copy Value"
-            content={item.value}
-            shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
-            onCopy={onSelect}
-          />
-          {createOpenAction(item.value, "Open", {
-            modifiers: ["cmd"],
-            key: "o",
-          } as const)}
-        </ActionPanel>
-      }
-    />
   );
 }

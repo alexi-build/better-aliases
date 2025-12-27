@@ -20,6 +20,7 @@ export default function Command() {
         addBetterSnippet(values.alias, {
           value: values.body,
           label: values.label || values.alias,
+          snippetOnly: true,
         });
         await showToast(Toast.Style.Success, "Snippet created", values.alias);
         popToRoot();
