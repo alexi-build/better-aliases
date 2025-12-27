@@ -6,7 +6,6 @@ Create and manage better aliases and snippets directly in Raycast.
 
 - **Manage Aliases**: Create, search, and expand aliases efficiently.
 - **Snippets**: Create text snippets with support for randomized variations.
-- **Leader Key**: Visualize your leader key configuration as a keyboard layout.
 - **Custom Configuration**: Support for custom configuration file paths.
 
 ## Commands
@@ -15,7 +14,6 @@ Create and manage better aliases and snippets directly in Raycast.
 - **Create Snippet**: Add a new text snippet.
 - **Expand Alias or Insert Snippet**: Quickly find and use your aliases or snippets.
 - **Search Aliases**: Browse and manage your existing aliases.
-- **View Leader Key**: Visual representation of your leader key bindings.
 
 ## Configuration
 

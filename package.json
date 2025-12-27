@@ -42,12 +42,6 @@
 			"title": "Search Aliases",
 			"description": "Better Aliases",
 			"mode": "view"
-		},
-		{
-			"name": "view-leader-key-as-keyboard-layout",
-			"title": "View Leader Key as Keyboard Layout",
-			"description": "Visualizes the leader key configuration as a keyboard layout.",
-			"mode": "view"
 		}
 	],
 	"preferences": [
