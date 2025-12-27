@@ -42,6 +42,12 @@
 			"title": "Search Aliases",
 			"description": "Better Aliases",
 			"mode": "view"
+		},
+		{
+			"name": "search-snippets",
+			"title": "Search Snippets",
+			"description": "Better Aliases",
+			"mode": "view"
 		}
 	],
 	"preferences": [
@@ -79,6 +85,14 @@
 			"type": "file",
 			"required": false,
 			"placeholder": "Select Better Aliases config file"
+		},
+		{
+			"name": "betterSnippetsConfigPath",
+			"title": "Better Snippets Config Path",
+			"description": "Path to the Better Snippets configuration file (optional, defaults to ~/.config/better-aliases/better-snippets.json)",
+			"type": "file",
+			"required": false,
+			"placeholder": "Select Better Snippets config file"
 		},
 		{
 			"name": "leaderKeyConfigPath",

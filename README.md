@@ -27,7 +27,6 @@ This extension allows for deep customization via Extension Preferences:
 
 ## Roadmap
 
-- [ ] Add a command to search snippets
 - [ ] Add local usage statistics
 - [ ] Add a command to see usage statistics
 - [ ] Add a command to see all aliases and snippets as a keyboard layout
