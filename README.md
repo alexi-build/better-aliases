@@ -24,3 +24,11 @@ This extension allows for deep customization via Extension Preferences:
 - **Config Paths**:
   - **Better Aliases Config**: Path to your main JSON config (Defaults to `~/.config/better-aliases/better-aliases.json`).
   - **Leader Key Config**: Path to your leader key configuration file.
+
+## Roadmap
+
+- [ ] Add a command to search snippets
+- [ ] Add local usage statistics
+- [ ] Add a command to see usage statistics
+- [ ] Add a command to see all aliases and snippets as a keyboard layout
+- [ ] Add a command to see all aliases and snippets as a folder structure
