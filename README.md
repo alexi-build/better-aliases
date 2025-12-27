@@ -31,3 +31,7 @@ This extension allows for deep customization via Extension Preferences:
 - [ ] Add a command to see usage statistics
 - [ ] Add a command to see all aliases and snippets as a keyboard layout
 - [ ] Add a command to see all aliases and snippets as a folder structure
+- [ ] Support import of Raycast snippets
+- [ ] Support import of Raycast quicklinks
+- [ ] Support export as Raycast snippets
+- [ ] Support export as Raycast quicklinks
