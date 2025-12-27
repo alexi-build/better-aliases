@@ -2,7 +2,7 @@ import { Clipboard, open, showToast, Toast } from "@raycast/api";
 import { useEffect } from "react";
 import { getOpenTarget } from "../lib/openAlias";
 import { getRandomizedValue } from "../lib/snippetUtils";
-import { BetterAliasItem, ExpandAliasPreferences } from "../types";
+import type { BetterAliasItem, ExpandAliasPreferences } from "../types";
 
 export function useAutoTriggerAlias(
   sortedEntries: [string, BetterAliasItem][],
