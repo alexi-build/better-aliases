@@ -34,7 +34,7 @@ export function useAutoTriggerAlias(
         const targetToOpen = getOpenTarget(aliasItem.value);
         open(targetToOpen)
           .then(() => {
-            closeMainWindow();
+            // closeMainWindow should not be called here, it will close the entire application
             setSearchText("");
             visitItem(entry);
           })
