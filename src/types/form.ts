@@ -4,9 +4,3 @@ export type CreateBetterAliasFormData = {
   label?: string;
   snippetOnlyMode: boolean;
 };
-
-export type CreateBetterSnippetFormData = {
-  alias: string;
-  body: string;
-  label?: string;
-};

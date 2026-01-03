@@ -1,14 +1,9 @@
-import { getLeaderKeyAliases } from "./leaderKeyAliases";
-import { loadBetterAliases } from "./betterAliases";
-import { loadBetterSnippets } from "./betterSnippets";
 import type { BetterAliasesConfig } from "../types";
+import { loadBetterAliasesAsync } from "./betterAliases";
+import { getLeaderKeyAliasesAsync } from "./leaderKeyAliases";
 
-export function getAllAliasesConfig(): BetterAliasesConfig {
-  const leaderKeyAliases = getLeaderKeyAliases();
-  const betterAliases = loadBetterAliases();
-  const betterSnippets = loadBetterSnippets();
+export async function getAllAliasesConfigAsync(): Promise<BetterAliasesConfig> {
+  const [leaderKeyAliases, betterAliases] = await Promise.all([getLeaderKeyAliasesAsync(), loadBetterAliasesAsync()]);
 
-  // Better Aliases and Better Snippets override Leader Key aliases if same name
-  // Better Snippets override Better Aliases if same name
-  return { ...leaderKeyAliases, ...betterAliases, ...betterSnippets };
+  return { ...leaderKeyAliases, ...betterAliases };
 }

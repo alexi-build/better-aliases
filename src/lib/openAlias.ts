@@ -1,6 +1,21 @@
+import { Action, type Keyboard } from "@raycast/api";
 import React from "react";
-import { Action, Keyboard } from "@raycast/api";
 import { expandPath, extractPathFromOpenCommand, isOpenCommand } from "./expandPath";
+
+/**
+ * Checks if a string looks like a valid file path
+ * Returns false if it contains invalid path characters or is clearly not a path
+ */
+function isValidFilePath(value: string): boolean {
+  // Reject paths with certain characters that are invalid in filenames
+  // or that indicate it's random snippet content
+  const invalidPatterns = [
+    /;;/, // Snippet separator
+    /^\s*$/, // Empty/whitespace only
+  ];
+
+  return !invalidPatterns.some((pattern) => pattern.test(value));
+}
 
 /**
  * Creates the appropriate Raycast Action for opening an alias value
@@ -8,13 +23,13 @@ import { expandPath, extractPathFromOpenCommand, isOpenCommand } from "./expandP
  * @param value - The alias value to open
  * @param title - The title for the action (default: "Open")
  * @param shortcut - The keyboard shortcut for the action
- * @returns A Raycast Action component
+ * @returns A Raycast Action component or null if the action cannot be created
  */
 export function createOpenAction(
   value: string,
   title: string = "Open",
   shortcut?: Keyboard.Shortcut,
-): React.ReactElement {
+): React.ReactElement | null {
   // Handle different types of values
   if (value.includes("://")) {
     // URLs - use Action.Open
@@ -26,14 +41,17 @@ export function createOpenAction(
   } else if (isOpenCommand(value)) {
     // "open" commands - extract and expand the path
     const pathFromCommand = extractPathFromOpenCommand(value);
+    if (!isValidFilePath(pathFromCommand)) {
+      return null;
+    }
     const expandedPath = expandPath(pathFromCommand);
     return React.createElement(Action.OpenWith, {
       path: expandedPath,
       title: "Open with",
       shortcut: shortcut,
     });
-  } else {
-    // Regular paths - expand environment variables
+  } else if (isValidFilePath(value)) {
+    // Regular paths - expand environment variables (only if valid path)
     const expandedPath = expandPath(value);
     return React.createElement(Action.OpenWith, {
       path: expandedPath,
@@ -41,6 +59,9 @@ export function createOpenAction(
       shortcut: shortcut,
     });
   }
+
+  // Return null if value is not a valid path/URL
+  return null;
 }
 
 /**

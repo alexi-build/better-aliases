@@ -1,6 +1,7 @@
 export interface BetterAliasItem {
   value: string;
   label?: string;
+  snippetOnly?: boolean;
 }
 
 export interface BetterAliasesConfig {
@@ -11,10 +12,10 @@ export interface BetterAliasesConfig {
 export interface Preferences {
   leaderKeyConfigPath?: string;
   betterAliasesConfigPath?: string;
-  betterSnippetsConfigPath?: string;
   hideAccessories?: boolean;
   snippetPrefix?: string;
   randomizedSnippetSeparator?: string;
+  showFullAlias?: boolean;
 }
 
 // expand alias preferences

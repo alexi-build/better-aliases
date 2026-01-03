@@ -5,25 +5,18 @@
 	"description": "Better Aliases - Create better aliases in Raycast",
 	"icon": "better-aliases.png",
 	"author": "alexi.build",
-	"owner": "raycast.ing",
 	"license": "MIT",
 	"commands": [
 		{
 			"name": "create-alias",
 			"title": "Create Alias",
-			"description": "Better Aliases",
-			"mode": "view"
-		},
-		{
-			"name": "create-snippet",
-			"title": "Create Snippet",
-			"description": "Better Aliases",
+			"description": "Create a new alias for URLs, apps, commands, or text snippets",
 			"mode": "view"
 		},
 		{
 			"name": "expand-alias",
-			"title": "Expand Alias",
-			"description": "Better Aliases",
+			"title": "Expand Alias or Insert Snippet",
+			"description": "Expand alias or insert snippet",
 			"mode": "view",
 			"preferences": [
 				{
@@ -40,14 +33,20 @@
 		{
 			"name": "search-aliases",
 			"title": "Search Aliases",
-			"description": "Better Aliases",
+			"description": "Search, view, edit, and delete aliases",
 			"mode": "view"
 		},
 		{
-			"name": "view-leader-key-as-keyboard-layout",
-			"title": "View Leader Key as Keyboard Layout",
-			"description": "Visualizes the leader key configuration as a keyboard layout.",
+			"name": "insert-snippet",
+			"title": "Insert Snippet",
+			"description": "Quickly insert a text snippet",
 			"mode": "view"
+		},
+		{
+			"name": "open-config-folder",
+			"title": "Open Config Folder",
+			"description": "Open the folder containing your Better Aliases configuration JSON file",
+			"mode": "no-view"
 		}
 	],
 	"preferences": [
@@ -80,16 +79,16 @@
 		},
 		{
 			"name": "betterAliasesConfigPath",
-			"title": "Better Aliases Config Path",
-			"description": "Path to the Better Aliases configuration file (optional, defaults to ~/.config/better-aliases/better-aliases.json)",
+			"title": "Better Aliases Config Path (optional)",
+			"description": "Override default config location. Leave empty to use Raycast's extension support folder.",
 			"type": "file",
 			"required": false,
-			"placeholder": "Select Better Aliases config file"
+			"placeholder": "Default: {supportPath}/config.json"
 		},
 		{
 			"name": "leaderKeyConfigPath",
-			"title": "Leader Key Config Path",
-			"description": "Path to the leader key configuration file",
+			"title": "Leader Key Config Path (optional)",
+			"description": "Path to the leader key configuration file (defaults to ~/Library/Application Support/Leader Key/config.json)",
 			"type": "file",
 			"required": false,
 			"placeholder": "Select leader key config file"
