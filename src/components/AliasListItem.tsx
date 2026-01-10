@@ -1,9 +1,10 @@
-import { ActionPanel, Keyboard, List } from "@raycast/api";
+import { Action, ActionPanel, Icon, Keyboard, List } from "@raycast/api";
 import { deleteBetterAlias } from "../lib/betterAliases";
 import { formatAlias } from "../lib/formatAlias";
 import { createOpenAction } from "../lib/openAlias";
 import type { BetterAliasItem, Preferences } from "../types";
 import { CopyActions, DeleteAction, EditAction, ViewAction } from "./actions";
+import { handleOpenItems } from "./actions/OpenItems";
 import { EditAliasForm } from "./EditAliasForm";
 
 interface AliasListItemProps {
@@ -13,9 +14,18 @@ interface AliasListItemProps {
   searchText: string;
   onSelect?: () => void;
   onDelete?: () => void;
+  allFilteredItems?: [string, BetterAliasItem][];
 }
 
-export function AliasListItem({ alias, item, preferences, searchText, onSelect, onDelete }: AliasListItemProps) {
+export function AliasListItem({
+  alias,
+  item,
+  preferences,
+  searchText,
+  onSelect,
+  onDelete,
+  allFilteredItems,
+}: AliasListItemProps) {
   const displayAlias = formatAlias(alias, !!preferences.showFullAlias, searchText);
   const openAction = createOpenAction(item.value, "Open", Keyboard.Shortcut.Common.Open);
 
@@ -27,6 +37,7 @@ export function AliasListItem({ alias, item, preferences, searchText, onSelect, 
       actions={
         <ActionPanel>
           <CopyActions alias={alias} value={item.value} onCopy={onSelect} />
+
           <EditAction alias={alias} item={item} itemType="alias" EditComponent={EditAliasForm} />
           <ViewAction alias={alias} item={item} itemType="alias" />
           <DeleteAction
@@ -36,6 +47,32 @@ export function AliasListItem({ alias, item, preferences, searchText, onSelect, 
             onSuccess={onDelete}
           />
           {openAction}
+          {/* Open All Filtered */}
+          {allFilteredItems && allFilteredItems.length > 1 && (
+            <Action
+              title="Open All Filtered"
+              icon={Icon.ArrowsExpand}
+              shortcut={{ modifiers: ["opt", "shift"], key: "enter" }}
+              onAction={() => handleOpenItems(allFilteredItems)}
+            />
+          )}
+          {/* Open by Slice */}
+          {allFilteredItems &&
+            [1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => {
+              if (num > allFilteredItems.length) return null;
+              return (
+                <Action
+                  key={num}
+                  title={`Open First ${num} ${num === 1 ? "Item" : "Items"}`}
+                  icon={Icon.ArrowRight}
+                  shortcut={{
+                    modifiers: ["opt", "shift"],
+                    key: String(num) as Keyboard.KeyEquivalent,
+                  }}
+                  onAction={() => handleOpenItems(allFilteredItems, num)}
+                />
+              );
+            })}
         </ActionPanel>
       }
     />
