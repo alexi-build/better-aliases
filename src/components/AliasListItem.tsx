@@ -13,6 +13,7 @@ interface AliasListItemProps {
   preferences: Preferences;
   searchText: string;
   onSelect?: () => void;
+  onOpen?: () => void;
   onDelete?: () => void;
   allFilteredItems?: [string, BetterAliasItem][];
 }
@@ -23,11 +24,12 @@ export function AliasListItem({
   preferences,
   searchText,
   onSelect,
+  onOpen,
   onDelete,
   allFilteredItems,
 }: AliasListItemProps) {
   const displayAlias = formatAlias(alias, !!preferences.showFullAlias, searchText);
-  const openAction = createOpenAction(item.value, "Open", Keyboard.Shortcut.Common.Open);
+  const openAction = createOpenAction(item.value, "Open", Keyboard.Shortcut.Common.Open, onOpen);
 
   return (
     <List.Item
