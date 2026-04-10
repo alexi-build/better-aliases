@@ -2,7 +2,6 @@ import { getPreferenceValues, Icon, List } from "@raycast/api";
 import { useMemo, useState } from "react";
 import { AliasListItem } from "./components/AliasListItem";
 import { useAliasesWithFrecency, useAllItems, useAutoTriggerAlias } from "./hooks";
-import { filterAliases } from "./lib/aliasFiltering";
 import type { ExpandAliasPreferences } from "./schemas";
 
 export default function Command() {
@@ -10,25 +9,22 @@ export default function Command() {
   const { data: aliases = {}, isLoading, revalidate } = useAllItems();
   const [searchText, setSearchText] = useState("");
 
-  const filterResult = useMemo(
-    () =>
-      filterAliases(aliases, {
-        searchText,
-        snippetPrefix: preferences.snippetPrefix,
-      }),
-    [aliases, searchText, preferences.snippetPrefix],
-  );
+  const filteredEntries = useMemo(() => {
+    const entries = Object.entries(aliases);
+    if (!searchText.trim()) return entries;
+    return entries.filter(([alias]) => alias.toLowerCase().includes(searchText.toLowerCase()));
+  }, [aliases, searchText]);
 
-  const { sortedEntries, visitItem } = useAliasesWithFrecency(filterResult.entries);
+  const { sortedEntries, visitItem } = useAliasesWithFrecency(filteredEntries);
 
-  useAutoTriggerAlias(sortedEntries, searchText, setSearchText, visitItem, preferences);
+  useAutoTriggerAlias(sortedEntries, searchText, setSearchText, visitItem, preferences, { forceSnippetMode: true });
 
   const totalAliases = Object.keys(aliases).length;
 
   return (
     <List
       isLoading={isLoading}
-      searchBarPlaceholder={`Expand Alias or Insert Snippet... (${totalAliases} ${totalAliases === 1 ? "alias" : "aliases"})`}
+      searchBarPlaceholder={`Insert Snippet... (${totalAliases} ${totalAliases === 1 ? "snippet" : "snippets"})`}
       onSearchTextChange={setSearchText}
       searchText={searchText}
     >
@@ -51,6 +47,7 @@ export default function Command() {
               item={aliasItem}
               preferences={preferences}
               searchText={searchText}
+              primaryActionType="paste"
               onSelect={() => visitItem([alias, aliasItem])}
               onOpen={() => visitItem([alias, aliasItem])}
               onDelete={() => revalidate()}
