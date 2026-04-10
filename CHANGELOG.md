@@ -1,5 +1,13 @@
 # Better Aliases Changelog
 
+## [Add Windows Support] - {PR_MERGE_DATE}
+
+- Added Windows platform support (`"platforms": ["macOS", "Windows"]`)
+- Removed hardcoded macOS-only default path for Leader Key config
+- Added platform-specific defaults in preferences (macOS auto-detects, Windows requires manual selection)
+- Created `resolveLeaderKeyConfigPath()` function for dynamic path resolution
+- Updated documentation to guide Windows users on manual config file selection
+
 ## [Initial Version] - 2026-01-15
 
 - **Auto-trigger aliases**: When you type the alias, the expand alias command will automatically open url, application, or insert snippet.
